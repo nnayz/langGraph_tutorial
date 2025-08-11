@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11434
+    volumes:
+      - ./ollama_data:/root/.ollama
+    restart: unless-stopped
+
+  ollama_embedding:
+    image: ollama/ollama:latest
+    container_name: embedding
+    ports:
+      - "11433:11433"
+    environment:
+      - OLLAMA_HOST=0.0.0.0:11433
+    volumes:
+      - ./ollama_data:/root/.ollama_embedding
+
+volumes:
+  ollama_data:
